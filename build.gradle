@@ -10,6 +10,13 @@ plugins {
 
 }
 
+sonar{
+    properties{
+        property "sonar.projectKey", "test1"
+        property "sonar.projectName", "ogl_ci_cd"
+        property "sonar.host.url", "http://197.140.142.82:9000"    }
+}
+
 group = 'com.example'
 version = '1.0'
 
