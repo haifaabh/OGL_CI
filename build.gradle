@@ -30,12 +30,7 @@ cucumberReports {
     reports = files('reports/example-report.json')
 }*/
 
-sonar {
-    properties {
-        property("sonar.projectKey", "OGLTP5")
-        property("sonar.host.url", "http://localhost:9000")
-    }
-}
+
 
 test {
     finalizedBy jacocoTestReport,project.tasks["sonar"] // report is always generated after tests run
