@@ -32,19 +32,14 @@ cucumberReports {
 
 
 
-test {
-    finalizedBy jacocoTestReport,project.tasks["sonar"] // report is always generated after tests run
-}
 
-jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
-}
+
+
 /*
 publish.finalizedBy "postBuiltSucceedToSlack"
 publish.finalizedBy "sendMail"
 */
 
-project.tasks["sonar"].dependsOn "jacocoTestReport"
 
 publishing {
     repositories {
