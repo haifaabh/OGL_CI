@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat './gradlew sonar'
+                bat './gradlew build'
                 //archiveArtifacts artifacts: '**/target/*.jar'
             }
         }
