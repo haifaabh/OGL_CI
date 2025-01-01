@@ -59,7 +59,7 @@ pipeline {
             }
         }
 
-        stage('Deployy') {
+        stage('Deploy') {
             steps {
                 echo 'Deploying to MyMavenRepo...'
                 bat "./gradlew publish"
