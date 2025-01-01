@@ -7,6 +7,7 @@ pipeline {
             steps {
                 bat './gradlew sonar'
                 //archiveArtifacts artifacts: '**/target/*.jar'
+
             }
         }
     }
