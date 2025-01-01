@@ -75,7 +75,7 @@ pipeline {
                              subject: "Jenkins Build #${env.BUILD_NUMBER} Success",
                              body: "The build #${env.BUILD_NUMBER} was successful.\n\nCheck it out: ${env.BUILD_URL}"
                     } else {
-                        mail to: 'lm_djabri@esi.dz',
+                        mail to: 'lh_bouhadi@esi.dz',
                              subject: "Jenkins Build #${env.BUILD_NUMBER} Failure",
                              body: "The build #${env.BUILD_NUMBER} failed.\n\nCheck it out: ${env.BUILD_URL}"
                     }
