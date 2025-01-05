@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage('Code Analysis') {
+   /*     stage('Code Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
                 script {
@@ -41,7 +41,24 @@ pipeline {
                     }
                 }
             }
+        }*/
+
+        stage('Code Analysis') {
+            steps {
+                echo 'Running SonarQube analysis...'
+                script {
+                    try {
+                        bat "./gradlew sonarqube -Dsonar.host.url=${SONAR_HOST_URL}"
+                        echo "SonarQube analysis completed successfully."
+                    } catch (Exception e) {
+                        echo "SonarQube analysis failed: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error("SonarQube analysis failed")
+                    }
+                }
+            }
         }
+
         stage('Code Quality') {
             steps {
                 echo 'Checking SonarQube Quality Gates...'
