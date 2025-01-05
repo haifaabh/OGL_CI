@@ -104,4 +104,13 @@ pipeline {
             echo 'Pipeline failed!'
         }
     }
+
+       stage('Slack Notification') {
+          steps {
+              slackSend channel: '#test',
+              color: 'good',
+              message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully."
+                 }
+             }
+
 }
