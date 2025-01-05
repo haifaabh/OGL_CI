@@ -49,7 +49,13 @@ pipeline {
                 script {
                     try {
                         bat './gradlew build'
-                        archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+                        echo 'Generating Documentation...'
+                        bat './gradlew javadoc' // Génération de la documentation
+                        archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+                        archiveArtifacts artifacts: '**/build/docs/javadoc/**', fingerprint: true
+
+                   //     archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+
                     } catch (Exception e) {
                         echo "Build stage failed: ${e.message}"
                         currentBuild.result = 'FAILURE'
