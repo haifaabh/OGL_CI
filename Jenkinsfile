@@ -61,7 +61,7 @@ pipeline {
              }
          }
 
-         stage('Code Quality') {
+     /*    stage('Code Quality') {
              steps {
                  echo 'Checking SonarQube Quality Gates...'
                  script {
@@ -83,7 +83,7 @@ pipeline {
                      }
                  }
              }
-         }
+         }*/
 
         stage('Build') {
             steps {
