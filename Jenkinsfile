@@ -43,45 +43,47 @@ pipeline {
             }
         }*/
 
-        stage('Code Analysis') {
-            steps {
-                echo 'Running SonarQube analysis...'
-                script {
-                    try {
-                        bat "./gradlew sonarqube -Dsonar.host.url=${SONAR_HOST_URL}"
-                        echo "SonarQube analysis completed successfully."
-                    } catch (Exception e) {
-                        echo "SonarQube analysis failed: ${e.message}"
-                        currentBuild.result = 'FAILURE'
-                        error("SonarQube analysis failed")
-                    }
-                }
-            }
-        }
+       stage('Code Analysis') {
+             steps {
+                 echo 'Running SonarQube analysis...'
+                 withSonarQubeEnv('sonar') {
+                     script {
+                         try {
+                             bat "./gradlew sonarqube -Dsonar.host.url=${SONAR_HOST_URL}"
+                             echo "SonarQube analysis completed successfully."
+                         } catch (Exception e) {
+                             echo "SonarQube analysis failed: ${e.message}"
+                             currentBuild.result = 'FAILURE'
+                             error("SonarQube analysis failed")
+                         }
+                     }
+                 }
+             }
+         }
 
-        stage('Code Quality') {
-            steps {
-                echo 'Checking SonarQube Quality Gates...'
-                script {
-                    try {
-                        timeout(time: 2, unit: 'MINUTES') { // Adjust timeout as needed
-                            def qg = waitForQualityGate()
-                            if (qg.status != 'OK') {
-                                echo "Quality Gates failed: ${qg.status}"
-                                currentBuild.result = 'FAILURE'
-                                error("Quality Gates failed. Stopping pipeline.")
-                            } else {
-                                echo "Quality Gates passed: ${qg.status}"
-                            }
-                        }
-                    } catch (Exception e) {
-                        echo "Quality Gates check failed: ${e.message}"
-                        currentBuild.result = 'FAILURE'
-                        error("Quality Gates check failed")
-                    }
-                }
-            }
-        }
+         stage('Code Quality') {
+             steps {
+                 echo 'Checking SonarQube Quality Gates...'
+                 script {
+                     try {
+                         timeout(time: 2, unit: 'MINUTES') { // Adjust timeout as needed
+                             def qg = waitForQualityGate()
+                             if (qg.status != 'OK') {
+                                 echo "Quality Gates failed: ${qg.status}"
+                                 currentBuild.result = 'FAILURE'
+                                 error("Quality Gates failed. Stopping pipeline.")
+                             } else {
+                                 echo "Quality Gates passed: ${qg.status}"
+                             }
+                         }
+                     } catch (Exception e) {
+                         echo "Quality Gates check failed: ${e.message}"
+                         currentBuild.result = 'FAILURE'
+                         error("Quality Gates check failed")
+                     }
+                 }
+             }
+         }
 
         stage('Build') {
             steps {
