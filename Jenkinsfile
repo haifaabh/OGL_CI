@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-
+/*
 stage('Code Analysis') {
     steps {
         echo 'Running SonarQube analysis...'
@@ -46,8 +46,8 @@ stage('Code Analysis') {
     }
 }
 
-
-    /*   stage('Code Analysis') {
+*/
+    stage('Code Analysis') {
              steps {
                  echo 'Running SonarQube analysis...'
                  withSonarQubeEnv('sonar') {
@@ -64,7 +64,7 @@ stage('Code Analysis') {
                  }
              }
          }
-*/
+
 stage('Code Quality') {
     steps {
         echo 'Checking SonarQube Quality Gates...'
