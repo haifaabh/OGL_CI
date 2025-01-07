@@ -30,6 +30,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+
+tasks.test {
+    useJUnit()
+    systemProperty 'cucumber.plugin', 'json:build/reports/cucumber/cucumber.json'
+}
+
 /*
 cucumberReports {
     outputDir = file('build/reports/cucumber')

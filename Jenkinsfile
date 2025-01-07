@@ -19,7 +19,7 @@ pipeline {
                     try {
                         bat './gradlew test'
                         junit '**/build/test-results/test/*.xml'
-                        cucumber '*/reports/cucumber/json/.json'
+                        cucumber '**/build/reports/cucumber/*.json'
                     } catch (Exception e) {
                         echo "Test stage failed: ${e.message}"
                         currentBuild.result = 'FAILURE'
