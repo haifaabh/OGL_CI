@@ -19,20 +19,10 @@ pipeline {
                     try {
                         bat './gradlew test'
                         junit '**/build/test-results/test/*.xml'
-                        cucumber '**/build/reports/cucumber/*.json'
+                        cucumber '**/reports/*.json'
                         archiveArtifacts artifacts: '**/build/reports/cucumber/*.*', allowEmptyArchive: true
                         archiveArtifacts artifacts: '**/build/reports/jacoco/test/html/**/*, **/build/reports/jacoco/test/xml/**/*', allowEmptyArchive: true
-                        cucumber buildStatus: 'UNSTABLE',
 
-                                  reportTitle: 'CucumberReport',
-                                  fileIncludePattern: 'reports/example-report.json',
-                                  trendsLimit: 10,
-                                  classifications: [
-                                        [
-                                             'key': 'Browser',
-                                             'value': 'Firefox'
-                                        ]
-                                  ]
                     } catch (Exception e) {
                         echo "Test stage failed: ${e.message}"
                         currentBuild.result = 'FAILURE'
