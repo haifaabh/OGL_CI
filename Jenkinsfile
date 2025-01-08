@@ -20,6 +20,7 @@ pipeline {
                         bat './gradlew test'
                         junit '**/build/test-results/test/*.xml'
                         cucumber '**/build/reports/cucumber/*.json'
+                        archiveArtifacts artifacts: '**/build/reports/cucumber/*.json', allowEmptyArchive: true
                         archiveArtifacts artifacts: '**/build/reports/jacoco/test/html/**/*, **/build/reports/jacoco/test/xml/**/*', allowEmptyArchive: true
 
                     } catch (Exception e) {
