@@ -20,6 +20,8 @@ pipeline {
                         bat './gradlew test'
                         junit '**/build/test-results/test/*.xml'
                         cucumber '**/build/reports/cucumber/*.json'
+                        archiveArtifacts artifacts: '**/build/reports/jacoco/test/html/**/*, **/build/reports/jacoco/test/xml/**/*', allowEmptyArchive: true
+
                     } catch (Exception e) {
                         echo "Test stage failed: ${e.message}"
                         currentBuild.result = 'FAILURE'
