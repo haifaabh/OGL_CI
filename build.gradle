@@ -34,8 +34,18 @@ dependencies {
 tasks.test {
     useJUnit()
     systemProperty 'cucumber.plugin', 'json:build/reports/cucumber/cucumber.json'
+    finalizedBy jacocoTestReport
 }
 
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required.set(true)  // Enable XML report for SonarQube
+        csv.required.set(false)
+        html.required.set(true) // Enable HTML report for easier visualization
+    }
+}
 /*
 cucumberReports {
     outputDir = file('build/reports/cucumber')
